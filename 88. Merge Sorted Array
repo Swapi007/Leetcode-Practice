@@ -1,0 +1,31 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        for(int i=m;i<nums1.length;i++){
+            nums1[i]=nums2[i-m];
+        }
+        quickSort(nums1,0,nums1.length-1);
+    }
+    public void quickSort(int nums[],int start,int end){
+        if(start<end){
+            int pindex=partition(nums,start,end);
+            quickSort(nums,start,pindex-1);
+            quickSort(nums,pindex+1,end);
+        }
+    }
+    public int partition(int nums[],int start,int end){
+        int piv=nums[end];
+        int pindex=start;
+        for(int i=start;i<end;i++){
+            if(nums[i]<piv){
+                int temp=nums[i];
+                nums[i]=nums[pindex];
+                nums[pindex]=temp;
+                pindex++;
+            }
+        }
+        int temp=nums[pindex];
+        nums[pindex]=nums[end];
+        nums[end]=temp;
+        return pindex;
+    }
+}
