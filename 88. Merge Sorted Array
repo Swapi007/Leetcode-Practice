@@ -1,31 +1,16 @@
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        for(int i=m;i<nums1.length;i++){
-            nums1[i]=nums2[i-m];
+        if(m==0){
+            for(int i=0;i<n;i++)
+                nums1[i]=nums2[i];
         }
-        quickSort(nums1,0,nums1.length-1);
-    }
-    public void quickSort(int nums[],int start,int end){
-        if(start<end){
-            int pindex=partition(nums,start,end);
-            quickSort(nums,start,pindex-1);
-            quickSort(nums,pindex+1,end);
-        }
-    }
-    public int partition(int nums[],int start,int end){
-        int piv=nums[end];
-        int pindex=start;
-        for(int i=start;i<end;i++){
-            if(nums[i]<piv){
-                int temp=nums[i];
-                nums[i]=nums[pindex];
-                nums[pindex]=temp;
-                pindex++;
+        int tail1=m-1,tail2=n-1,finalindex=m+n-1;
+        while(tail1>=0&&tail2>=0){
+                nums1[finalindex--]=(nums1[tail1]>nums2[tail2]) ?
+                                    nums1[tail1--]: nums2[tail2--];
             }
-        }
-        int temp=nums[pindex];
-        nums[pindex]=nums[end];
-        nums[end]=temp;
-        return pindex;
+        while(tail2>=0&&tail1<1){
+                nums1[finalindex--]=nums2[tail2--];
+            }    
     }
 }
